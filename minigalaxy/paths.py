@@ -1,27 +1,30 @@
 import os
 import sys
+from pathlib import Path
 
-LAUNCH_DIR = os.path.abspath(os.path.dirname(sys.argv[0]))
+LAUNCH_DIR = Path(sys.argv[0]).parent.resolve()
 
-CONFIG_DIR = os.path.join(os.getenv('XDG_CONFIG_HOME', os.path.expanduser('~/.config')), "minigalaxy")
-CONFIG_FILE_PATH = os.path.join(CONFIG_DIR, "config.json")
-CACHE_DIR = os.path.join(os.getenv('XDG_CACHE_HOME', os.path.expanduser('~/.cache')), "minigalaxy")
+CONFIG_DIR = Path(os.getenv('XDG_CONFIG_HOME', Path('~/.config').expanduser()) / 'minigalaxy')
+CONFIG_FILE_PATH = str(CONFIG_DIR / 'config.json')
+CACHE_DIR = Path(os.getenv('XDG_CACHE_HOME', Path('~/.cache').expanduser()) / 'minigalaxy')
 
-THUMBNAIL_DIR = os.path.join(CACHE_DIR, "thumbnails")
-DEFAULT_INSTALL_DIR = os.path.expanduser("~/GOG Games")
+THUMBNAIL_DIR = CACHE_DIR / 'thumbnails'
+DEFAULT_INSTALL_DIR = Path('~/GOG Games').expanduser()
 
-UI_DIR = os.path.abspath(os.path.join(LAUNCH_DIR, "../data/ui"))
-if not os.path.exists(UI_DIR):
-    UI_DIR = os.path.abspath(os.path.join(LAUNCH_DIR, "../share/minigalaxy/ui"))
+UI_DIR = LAUNCH_DIR / '..' / 'data' / 'ui'
+if not UI_DIR.exists():
+    UI_DIR = LAUNCH_DIR / '..' / 'share' / 'minigalaxy' / 'ui'
 
-LOGO_IMAGE_PATH = os.path.abspath(os.path.join(LAUNCH_DIR, "../data/icons/192x192/io.github.sharkwouter.Minigalaxy.png"))
-if not os.path.exists(LOGO_IMAGE_PATH):
-    LOGO_IMAGE_PATH = os.path.abspath(os.path.join(LAUNCH_DIR, "../share/icons/hicolor/192x192/apps/io.github.sharkwouter.Minigalaxy.png"))
+LOGO_IMAGE_PATH = LAUNCH_DIR / '..' / 'data' / 'icons' / '192x192' / 'io.github.sharkwouter.Minigalaxy.png'
+if not LOGO_IMAGE_PATH.exists():
+    LOGO_IMAGE_PATH = LAUNCH_DIR / '..' / 'share' / 'icons'/ 'hicolor' / '192x192' / 'apps' / 'io.github.sharkwouter.Minigalaxy.png'
+LOGO_IMAGE_PATH = str(LOGO_IMAGE_PATH)
 
-ICON_WINE_PATH = os.path.abspath(os.path.join(LAUNCH_DIR, "../data/images/winehq_logo_glass.png"))
-if not os.path.exists(ICON_WINE_PATH):
-    ICON_WINE_PATH = os.path.abspath(os.path.join(LAUNCH_DIR, "../share/minigalaxy/images/winehq_logo_glass.png"))
+ICON_WINE_PATH = LAUNCH_DIR/'..'/'data'/'images'/'winehq_logo_glass.png'
+if not ICON_WINE_PATH.exists():
+    ICON_WINE_PATH = LAUNCH_DIR / '..' / 'share' / 'minigalaxy' / 'images' / 'winehq_logo_glass.png'
+ICON_WINE_PATH = str(ICON_WINE_PATH)
 
-LOCALE_DIR = os.path.abspath(os.path.join(LAUNCH_DIR, "../data/mo"))
-if not os.path.exists(LOCALE_DIR):
-    LOCALE_DIR = os.path.abspath(os.path.join(LAUNCH_DIR, "../share/minigalaxy/translations"))
+LOCALE_DIR = LAUNCH_DIR / '..' / 'data' / 'mo'
+if not LOCALE_DIR.exists:
+    LOCALE_DIR = LAUNCH_DIR / '..' / 'share' / 'minigalaxy' / 'translations'
